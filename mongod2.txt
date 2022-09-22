@@ -1,0 +1,234 @@
+Mongodb Day-2 task:
+
+Databasse:Zen_class
+
+Collection:users
+
+db.users.insertMany([
+  {
+    id: "1",
+    user: "Sachin",
+    codekata_solved: 110,
+    placement_appeared: true,
+  },
+  {
+    id: "2",
+    user: "Saurabh",
+    codekata_solved: 120,
+    placement_appeared: false,
+  },
+  {
+    id: "3",
+    user: "Rahul",
+    codekata_solved: 123,
+    placement_appeared: true,
+  },
+  {
+    id: "4",
+    user: "Dhoni",
+    codekata_solved: 150,
+    placement_appeared: true,
+  },
+  {
+    id: "5",
+    user: "Jadeja",
+    codekata_solved: 130,
+    placement_appeared: false,
+  },
+  {
+    id: "6",
+    user: "Suresh",
+    codekata_solved: 150,
+    placement_appeared: false,
+  },
+   {
+    id: "7",
+    user: "Rohit",
+    codekata_solved: 70,
+    placement_appeared: true,
+  },
+  {
+    id: "8",
+    user: "Shewag",
+    codekata_solved: 100,
+    placement_appeared: false,
+  },
+  {
+    id: "9",
+    user: "Hardik",
+    codekata_solved: 90,
+    placement_appeared: true,
+  },
+  {
+    id: "10",
+    user: "Chahal",
+    codekata_solved: 130,
+    placement_appeared: false,
+  },
+]);
+
+
+
+
+Collection:Topics
+
+db.topics.insertMany([
+  {
+    topic: "HTML",
+    task: "Create simple titlebar",
+    month_taught: "June",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "CSS",
+    task: "Provide designing to titlebar",
+    month: "July",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "Javascript Basic",
+    task: "Write code to remove duplicates from array",
+    month: "October",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "Dom Manipulation",
+    task: "Craete basic elements using dom",
+    month: "October",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "React basic",
+    task: "Create todo form",
+    month: "October",
+    task_link: "www.zenclass.in",
+  },
+   {
+    topic: "Crud in React",
+    task: "Create crud operation",
+    month: "October",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "Context API",
+    task: "Create crud operation",
+    month: "November",
+    task_link: "www.zenclass.in",
+  },
+  {
+    topic: "SQL",
+    task: "perform basic queries",
+    month: "November",
+    task_link: "www.zenclass.in",
+  }
+]);
+
+
+Collection: submission
+
+db.submission.insertMany([
+{
+
+  user:"Sachin",
+  task_date:15,
+  task_month:"November",
+  task_submitted:false,
+  attendance_status:"P"
+},
+{
+ user:"Saurabh",
+  task_date:18,
+  task_month:"October",
+  task_submitted:false,
+  attendance_status:"P"
+
+},
+{
+  user:"Rahul",
+  task_date:22,
+  task_month:"October",
+  task_submitted:false,
+  attendance_status:"P"
+},
+{
+  user:"Dhoni",
+  task_date:16,
+  task_month:"October",
+  task_submitted:true,
+  attendance_status:"P"
+},
+{
+  user:"Jadeja",
+  task_date:30,
+  task_month:"October",
+  task_submitted:false,
+  attendance_status:"P"
+}
+
+])
+
+
+
+Collection:company_drives
+
+
+
+db.company_drives.insertMany([
+  {
+    company:"Infosys",
+    drive_date:"2022-10-15"
+    
+  },
+  {
+    company:"TCS",
+    drive_date:"2022-10-16"
+    
+  },
+  {
+    company:"Wipro",
+    drive_date:"2022-10-1"
+  },
+ {
+    company:"Zoho",
+    drive_date:"2022-11-5"
+  },
+ {
+    company:"Google",
+    drive_date:"2022-10-25"
+  }
+  
+  ])
+
+
+_
+
+
+Q.11: Find all the topics and tasks which are thought in the month of October
+Ans:db.topics.find({month:"October"})
+
+
+Q.12:Find all the company drives which appeared between 15 oct-2020 and 31-oct-2020
+Ans:db.company_drives.find({drive_date:{$gt:"2022-10-1",$lte:"2022-10-31"}})
+
+Q.13:Find all the company drives and students who are appeared for the placement.
+Ans:db.users.find({placement_appeared:true}).pretty()
+
+Q:14Find the number of problems solved by the user in codekata:
+Ans:db.users.find({},{_id:0,user:1,codekata_solved:1})
+
+Q15.Find all the mentors with who has the mentee's count more than 15 
+
+Ans://This will count the mentees length
+   db.mentors.aggregate({
+  $project: {mentees_count: { $size: "$mentees" } },
+    });
+
+
+  //This will give mentees whose length id greater than 15
+
+db.mentors.find({ mentee_count: { $gt: 15 } }).pretty();
+
+Q16:Find the number of users who are absent and task is not submitted  between 15 oct-2020 and 31-oct-2020
+Ans:db.sub.find({$and:[{task_month:"October"},{task_submitted:false}]})
+
+
